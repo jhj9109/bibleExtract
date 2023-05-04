@@ -44,20 +44,22 @@ exports.main = void 0;
 var process = require("process");
 var axios_1 = require("axios");
 var fs = require("fs");
+var prompt_1 = require("./prompt");
 var utils_1 = require("./utils");
 var parse_1 = require("./parse");
 var url_1 = require("./url");
 function main(args) {
     return __awaiter(this, void 0, void 0, function () {
-        var writeCallback, _a, bookName, chapterNumber, verseNumberStart, verseNumberEnd, requestUrl, response, htmlString, verses, textString;
+        var writeCallback, queryVersionName, _a, bookName, chapterNumber, verseNumberStart, verseNumberEnd, requestUrl, response, htmlString, verses, textString;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     writeCallback = function (err) {
                         return err ? console.error(err) : console.log('파일이 "output.txt"이름으로 성공적으로 저장되었습니다.');
                     };
+                    queryVersionName = (0, prompt_1.queryVersionPrompt)();
                     _a = (0, parse_1.parseArgument)(args), bookName = _a.bookName, chapterNumber = _a.chapterNumber, verseNumberStart = _a.verseNumberStart, verseNumberEnd = _a.verseNumberEnd;
-                    requestUrl = (0, url_1.getUrl)(bookName, chapterNumber, verseNumberStart);
+                    requestUrl = (0, url_1.getUrl)(bookName, chapterNumber, verseNumberStart, queryVersionName);
                     return [4 /*yield*/, axios_1.default.get(requestUrl)];
                 case 1:
                     response = _b.sent();
@@ -68,6 +70,7 @@ function main(args) {
                     textString = (0, utils_1.getTextString)(verses, bookName, chapterNumber, verseNumberStart, verseNumberEnd);
                     // console.log("============= textString ================");
                     // console.log(textString);
+                    // fs.appendFile('output.txt', textString, writeCallback);
                     fs.writeFile('output.txt', textString, writeCallback);
                     return [2 /*return*/];
             }

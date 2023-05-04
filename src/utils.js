@@ -38,7 +38,7 @@ var extractVersesFromHtmlString = function (htmlString, bookName, chapterNumber,
             .trim();
     };
     var $ = cheerio.load(htmlString);
-    var selector = 'div#tdBible1 > span';
+    var selector = 'div#tdBible1 span:not(.number)';
     var verses = $(selector)
         .map(function (_, el) { return parseSpanElement(el); })
         .toArray()
