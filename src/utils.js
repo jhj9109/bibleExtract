@@ -17,20 +17,30 @@ var isClamp = function (target, lowerbound, upperbound) {
 };
 exports.isClamp = isClamp;
 var extractVersesFromHtmlString = function (htmlString, bookName, chapterNumber, verseNumberStart, verseNumberEnd) {
-    var extractVerseText = function (spanElement) {
-        return $(spanElement)
+    var isCommentElement = function (el) { var _a; return !(el.type === "tag" && el.name === "font" && ((_a = el.attribs) === null || _a === void 0 ? void 0 : _a.size) !== '2'); };
+    var parseFontElement = function (el) {
+        return el.children
+            .filter(function (child) { return child.type === 'text'; })
+            .map(function (textNode) { return textNode.data; })
+            .filter(function (text) { return !!text; })
+            .join('');
+    };
+    var parseSpanElementChild = function (el) {
+        return el.type === 'text' ? el.data :
+            isCommentElement(el) ? '' : parseFontElement(el);
+    };
+    var parseSpanElement = function (spanElements) {
+        return $(spanElements)
             .contents()
-            .filter(function (i, el) { return el.type === "text"; })
-            .map(function (i, el) { return el.data.replaceAll('\n', ''); })
+            .map(function (i, spanElement) { return parseSpanElementChild(spanElement); })
             .toArray()
             .join('')
             .trim();
     };
     var $ = cheerio.load(htmlString);
-    // const selector = '#tdBible1 > span';
-    var selector = 'span:not(.number)';
+    var selector = 'div#tdBible1 > span';
     var verses = $(selector)
-        .map(function (_, el) { return extractVerseText(el); })
+        .map(function (_, el) { return parseSpanElement(el); })
         .toArray()
         .map(function (text, idx) { return ({ bookName: bookName, chapterNumber: chapterNumber, verseNumber: idx + 1, verseText: text }); })
         .filter(function (verse) { return (0, exports.isClamp)(verse.verseNumber, verseNumberStart, verseNumberEnd); });

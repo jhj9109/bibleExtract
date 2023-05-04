@@ -11,23 +11,30 @@ export const extractVersesFromHtmlString = (
   verseNumberStart: number,
   verseNumberEnd: number
 ) => {
-  
-  const extractVerseText = (spanElement: cheerio.Element) => 
-    $(spanElement)
+  const isCommentElement = (el: cheerio.TagElement | cheerio.CommentElement) => !(el.type === "tag" && el.name === "font" && el.attribs?.size !== '2')
+  const parseFontElement = (el: cheerio.TagElement) =>
+    el.children
+      .filter(child => child.type === 'text')
+      .map(textNode => textNode.data)
+      .filter(text => !!text)
+      .join('');
+  const parseSpanElementChild = (el: cheerio.Element) => 
+    el.type === 'text' ? el.data :
+        isCommentElement(el) ? '' : parseFontElement(el as cheerio.TagElement)
+  const parseSpanElement = (spanElements: cheerio.Element) => 
+    $(spanElements)
       .contents()
-      .filter((i, el) => (el as any).type === "text")
-      .map((i, el)=> (el as any).data.replaceAll('\n', ''))
+      .map((i, spanElement) => parseSpanElementChild(spanElement))
       .toArray()
       .join('')
       .trim()
 
   const $ = cheerio.load(htmlString);
 
-  // const selector = '#tdBible1 > span';
-  const selector = 'span:not(.number)';
+  const selector = 'div#tdBible1 > span';
   
   const verses = $(selector)
-    .map((_, el) => extractVerseText(el))
+    .map((_, el) => parseSpanElement(el))
     .toArray()
     .map((text, idx) => ({ bookName, chapterNumber, verseNumber: idx + 1, verseText: text }))
     .filter(verse => isClamp(verse.verseNumber, verseNumberStart, verseNumberEnd))
