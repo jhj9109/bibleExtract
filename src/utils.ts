@@ -31,7 +31,7 @@ export const extractVersesFromHtmlString = (
 
   const $ = cheerio.load(htmlString);
 
-  const selector = 'div#tdBible1 > span';
+  const selector = 'div#tdBible1 span:not(.number)';
   
   const verses = $(selector)
     .map((_, el) => parseSpanElement(el))
