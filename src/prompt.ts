@@ -1,5 +1,6 @@
 import * as readlineSync from 'readline-sync';
 import { queryVersionNames } from './data3';
+import { parseArgument } from './parse';
 
 export const promptWithOptions = (optionName: string, options: string[], defaultOption = '') => {
   const makePromptMessage = () => 
@@ -20,4 +21,36 @@ export const queryVersionPrompt = () => {
   const versionSelectedKr = promptWithOptions(queryVersionOptionName, queryVersionOptions, '개역개정');
   const queryVersionName = queryVersionNames[versionSelectedKr];
   return queryVersionName;
+}
+
+
+
+export const promptQueries = () => {
+  const bibleRequestInfos: BibleRequestInfo[] = [];
+  
+  console.log("찾을 성경 구절을 입력하세요. (e.g. 창 1 1 2) | 그만 하시려면 y를 입력하세요");
+  
+  let userInput = '';
+  
+  while (true) {
+    userInput = readlineSync.question("찾을 성경 구절: ");
+    
+    if (userInput === "y") {
+      break;
+    }
+    
+    if (userInput) {
+      
+      const args = (userInput as any).replaceAll(/\s{2,}/g, " ").split(" ") as string[];
+      
+      try {
+        bibleRequestInfos.push(parseArgument(args));
+      } catch (error) {
+        console.log(`올바르지 못한 입력입니다. (${userInput})`);
+      }
+
+    }
+  }
+
+  return bibleRequestInfos;
 }
