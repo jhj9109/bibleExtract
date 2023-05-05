@@ -3,74 +3,66 @@
 // @ts-check
 // @ts-nocheck
 
-import * as process from 'process';
 import axios from 'axios';
 import * as fs from 'fs';
-import { queryVersionPrompt } from './prompt';
+import { queryVersionPrompt, promptQueries } from './prompt';
 
-import { extractVersesFromHtmlString, getTextString } from './utils'
-import { parseArgument } from './parse'
+import { extractVersesFromHtmlString, getTextString, getLineFeedString } from './utils'
 import { getUrl } from './url'
 
-async function main(args: string[]) {
+async function main() {
   const writeCallback = (err: NodeJS.ErrnoException) =>
     err ? console.error(err) : console.log('파일이 "output.txt"이름으로 성공적으로 저장되었습니다.');
   
   const queryVersionName = queryVersionPrompt();
 
-  const { bookName, chapterNumber, verseNumberStart, verseNumberEnd } = parseArgument(args);
+  const bibleRequestInfos = promptQueries();
 
-  // 1. args에서 타겟을 설정하기 => bookName && chapter => url
-  const requestUrl = getUrl(bookName, chapterNumber, verseNumberStart, queryVersionName);
+  if (bibleRequestInfos.length === 0) {
+    console.log("검색할 성경 구절이 입력되지 않아 종료합니다.")
+    return;
+  }
 
-  // console.log("============= requestUrl ================");
-  // console.log(requestUrl)
-  
-  // 2. url로 요청후 응답 받기
-  const response = await axios.get(requestUrl);
-  const htmlString = await response.data;
-  
-  // console.log("============= htmlString ================");
-  // console.log(htmlString)
+  try {
+    const requestUrls = bibleRequestInfos.map(({ bookName, chapterNumber, verseNumberStart, verseNumberEnd }) =>
+      getUrl(bookName, chapterNumber, verseNumberStart, queryVersionName));
 
-  // 3. 응답에서 verses 추출
-  const verses = extractVersesFromHtmlString(
-    htmlString,
-    bookName,
-    chapterNumber,
-    verseNumberStart,
-    verseNumberEnd
-  );
+    const response = await Promise.all(requestUrls.map(url => axios.get(url)));
 
-  // console.log("============= verses ================");
-  // console.log(verses);
+    const textStrings = response.map((resp, i) => {
+      const { bookName, chapterNumber, verseNumberStart, verseNumberEnd } = bibleRequestInfos[i];
+      const htmlString = resp.data;
 
-  // 4. verses를 가지고 파일에 작성할 String 생성
-  const textString = getTextString(
-    verses,
-    bookName,
-    chapterNumber,
-    verseNumberStart,
-    verseNumberEnd,
-  );
+      const verses = extractVersesFromHtmlString(
+        htmlString,
+        bookName,
+        chapterNumber,
+        verseNumberStart,
+        verseNumberEnd
+      );
 
-  // console.log("============= textString ================");
-  // console.log(textString);
+      const textString = getTextString(
+        verses,
+        bookName,
+        chapterNumber,
+        verseNumberStart,
+        verseNumberEnd,
+      );
 
-  // fs.appendFile('output.txt', textString, writeCallback);
-  fs.writeFile('output.txt', textString, writeCallback);
+      return textString;
+    });
+
+    const lineFeed = getLineFeedString();
+    fs.writeFile('output.txt', textStrings.join(lineFeed), writeCallback);
+  } catch (error) {
+    console.error(error);
+  }  
 }
 
 if (require.main === module) {
-  // process.argv
-  // 0: /home/codespace/nvm/current/bin/ts-node
-  // 1: /workspaces/sunmin/a.ts
-  const args = process.argv.slice(2);
-  try {
-    main(args);
-  } catch (error) {
-    console.error(`Failed to parse JSON: ${error.message}`);
-  }
+  main();
 }
-
-export { main };
+// process.argv
+// 0: /home/codespace/nvm/current/bin/ts-node
+// 1: /workspaces/sunmin/a.ts
+// const args = process.argv.slice(2);
