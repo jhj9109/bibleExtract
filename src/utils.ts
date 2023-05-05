@@ -43,6 +43,13 @@ export const extractVersesFromHtmlString = (
   return verses;
 }
 
+export const getLineFeedString = () => {
+  // os.EOL 방식, os가 import가 안 되서 방식만 차용했다.
+  // Windows만 CR+LF를 사용하고, Unix,Linux,macOS에서는 LF만 사용한다.
+  const isWindow = process.platform === 'win32';
+  return isWindow ? '\r\n' : '\n';
+}
+
 export const getTextString = (
   verses: {
     bookName: string;
@@ -63,12 +70,6 @@ export const getTextString = (
     middle: '<>',
     movie: '&&' // 영화 자막 정렬(한 페이지내 가장 긴 문장(중앙정렬) 기준 왼쪽정렬)
   };
-  const getLineFeedString = () => {
-    // os.EOL 방식, os가 import가 안 되서 방식만 차용했다.
-    // Windows만 CR+LF를 사용하고, Unix,Linux,macOS에서는 LF만 사용한다.
-    const isWindow = process.platform === 'win32';
-    return isWindow ? '\r\n' : '\n';
-  }
   
   const lineFeed = getLineFeedString();
 
