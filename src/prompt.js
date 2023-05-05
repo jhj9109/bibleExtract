@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.queryVersionPrompt = exports.promptWithOptions = void 0;
+exports.promptQueries = exports.queryVersionPrompt = exports.promptWithOptions = void 0;
 var readlineSync = require("readline-sync");
 var data3_1 = require("./data3");
+var parse_1 = require("./parse");
 var promptWithOptions = function (optionName, options, defaultOption) {
     if (defaultOption === void 0) { defaultOption = ''; }
     var makePromptMessage = function () {
@@ -26,3 +27,25 @@ var queryVersionPrompt = function () {
     return queryVersionName;
 };
 exports.queryVersionPrompt = queryVersionPrompt;
+var promptQueries = function () {
+    var bibleRequestInfos = [];
+    console.log("찾을 성경 구절을 입력하세요. (e.g. 창 1 1 2) | 그만 하시려면 y를 입력하세요");
+    var userInput = '';
+    while (true) {
+        userInput = readlineSync.question("찾을 성경 구절: ");
+        if (userInput === "y") {
+            break;
+        }
+        if (userInput) {
+            var args = userInput.replaceAll(/\s{2,}/g, " ").split(" ");
+            try {
+                bibleRequestInfos.push((0, parse_1.parseArgument)(args));
+            }
+            catch (error) {
+                console.log("\uC62C\uBC14\uB974\uC9C0 \uBABB\uD55C \uC785\uB825\uC785\uB2C8\uB2E4. (".concat(userInput, ")"));
+            }
+        }
+    }
+    return bibleRequestInfos;
+};
+exports.promptQueries = promptQueries;

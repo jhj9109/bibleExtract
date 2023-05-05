@@ -9,7 +9,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTextString = exports.extractVersesFromHtmlString = exports.isClamp = void 0;
+exports.getTextString = exports.getLineFeedString = exports.extractVersesFromHtmlString = exports.isClamp = void 0;
 var data2_1 = require("./data2");
 var cheerio = require("cheerio");
 var isClamp = function (target, lowerbound, upperbound) {
@@ -48,6 +48,13 @@ var extractVersesFromHtmlString = function (htmlString, bookName, chapterNumber,
     return verses;
 };
 exports.extractVersesFromHtmlString = extractVersesFromHtmlString;
+var getLineFeedString = function () {
+    // os.EOL 방식, os가 import가 안 되서 방식만 차용했다.
+    // Windows만 CR+LF를 사용하고, Unix,Linux,macOS에서는 LF만 사용한다.
+    var isWindow = process.platform === 'win32';
+    return isWindow ? '\r\n' : '\n';
+};
+exports.getLineFeedString = getLineFeedString;
 var getTextString = function (verses, bookName, chapterNumber, verseNumberStart, verseNumberEnd, alignStyle) {
     if (alignStyle === void 0) { alignStyle = 'left'; }
     var NEW_PAGE_STRING = '//';
@@ -57,13 +64,7 @@ var getTextString = function (verses, bookName, chapterNumber, verseNumberStart,
         middle: '<>',
         movie: '&&' // 영화 자막 정렬(한 페이지내 가장 긴 문장(중앙정렬) 기준 왼쪽정렬)
     };
-    var getLineFeedString = function () {
-        // os.EOL 방식, os가 import가 안 되서 방식만 차용했다.
-        // Windows만 CR+LF를 사용하고, Unix,Linux,macOS에서는 LF만 사용한다.
-        var isWindow = process.platform === 'win32';
-        return isWindow ? '\r\n' : '\n';
-    };
-    var lineFeed = getLineFeedString();
+    var lineFeed = (0, exports.getLineFeedString)();
     var zeropadded = function (verseNumber) {
         return Array.from({ length: Math.max(0, String(verseNumberEnd).length - String(verseNumber).length) }).map(function (_) { return '0'; }) + String(verseNumber);
     };
