@@ -66,26 +66,27 @@ var getTextString = function (verses, bookName, chapterNumber, verseNumberStart,
     };
     var lineFeed = (0, exports.getLineFeedString)();
     var zeropadded = function (verseNumber) {
-        return Array.from({ length: Math.max(0, String(verseNumberEnd).length - String(verseNumber).length) }).map(function (_) { return '0'; }) + String(verseNumber);
+        return '0'.repeat(Math.max(0, String(verseNumberEnd).length - String(verseNumber).length)) + String(verseNumber);
     };
     var getHeadTitle = function (bookNameStyle, chapterString, verseString) {
         if (bookNameStyle === void 0) { bookNameStyle = 'fullNameKr'; }
         if (chapterString === void 0) { chapterString = ':'; }
         if (verseString === void 0) { verseString = '~'; }
         var bookFullNameKr = data2_1.bibleInfos.find(function (info) { return info.shortNameKr === bookName; })[bookNameStyle];
-        if (verseNumberStart === verseNumberEnd) {
-            return bookFullNameKr + ' ' + "".concat(chapterNumber) + chapterString + "".concat(verseNumberStart);
+        var headTitle = bookFullNameKr + ' ' + "".concat(chapterNumber) + chapterString + "".concat(verseNumberStart);
+        if (verseNumberStart < verseNumberEnd) {
+            if (verseNumberStart + 1 === verseNumberEnd) {
+                verseString = ',';
+            }
+            headTitle += verseString + "".concat(verseNumberEnd);
         }
-        else if (verseNumberStart + 1 === verseNumberEnd) {
-            return bookFullNameKr + ' ' + "".concat(chapterNumber) + chapterString + "".concat(verseNumberStart) + ',' + "".concat(verseNumberEnd);
-        }
-        else {
-            return bookFullNameKr + ' ' + "".concat(chapterNumber) + chapterString + "".concat(verseNumberStart) + verseString + "".concat(verseNumberEnd);
-        }
+        return headTitle;
     };
     var headTitle = getHeadTitle();
-    var paddedTexts = verses.map(function (el) { return "".concat(zeropadded(el.verseNumber), " ").concat(el.verseText); });
-    var result = __spreadArray([NEW_PAGE_STRING, ALIGN_STRING[alignStyle], headTitle], paddedTexts, true).join(lineFeed);
+    var paddedTexts = verses.map(function (verse) {
+        return "".concat(zeropadded(verse.verseNumber), " ").concat(verse.verseText);
+    });
+    var result = __spreadArray([NEW_PAGE_STRING, ALIGN_STRING[alignStyle], headTitle, lineFeed], paddedTexts, true).join(lineFeed);
     return result;
 };
 exports.getTextString = getTextString;

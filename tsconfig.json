@@ -7,5 +7,7 @@
       "./type"
     ],
     "esModuleInterop": true
-  }
+  },
+  "include": ["src/**/*", "type/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }

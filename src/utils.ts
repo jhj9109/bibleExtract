@@ -1,3 +1,4 @@
+import type { AlignMode, BookNameStyle, BibleInfo } from '../type/index'
 import { bibleInfos } from './data2';
 import * as cheerio from 'cheerio';
 
@@ -73,9 +74,9 @@ export const getTextString = (
   
   const lineFeed = getLineFeedString();
 
-  const zeropadded = (verseNumber: number) => 
-    Array.from({length: Math.max(0, String(verseNumberEnd).length - String(verseNumber).length)}).map(_ => '0') + String(verseNumber);
-  
+  const zeropadded = (verseNumber: number) =>
+    '0'.repeat(Math.max(0, String(verseNumberEnd).length - String(verseNumber).length)) + String(verseNumber);
+
   const getHeadTitle = (
     bookNameStyle: BookNameStyle = 'fullNameKr',
     chapterString: string = ':',
@@ -84,20 +85,24 @@ export const getTextString = (
     
     const bookFullNameKr = (bibleInfos.find(info => info.shortNameKr === bookName) as BibleInfo)[bookNameStyle];
 
-    if (verseNumberStart === verseNumberEnd) {
-      return bookFullNameKr + ' ' + `${chapterNumber}` + chapterString + `${verseNumberStart}`;
-    } else if (verseNumberStart + 1 === verseNumberEnd) {
-      return bookFullNameKr + ' ' + `${chapterNumber}` + chapterString + `${verseNumberStart}` + ',' + `${verseNumberEnd}`;
-    } else {
-      return bookFullNameKr + ' ' + `${chapterNumber}` + chapterString + `${verseNumberStart}` + verseString + `${verseNumberEnd}`;
+    let headTitle = bookFullNameKr + ' ' + `${chapterNumber}` + chapterString + `${verseNumberStart}`;
+    
+    if (verseNumberStart < verseNumberEnd) {
+      if (verseNumberStart + 1 === verseNumberEnd) {
+        verseString = ',';
+      }
+      headTitle += verseString + `${verseNumberEnd}`;
     }
+
+    return headTitle;
   }
   
   const headTitle = getHeadTitle();
   
-  const paddedTexts = verses.map(el => `${zeropadded(el.verseNumber)} ${el.verseText}`);
+  const paddedTexts = verses.map(verse =>
+    `${zeropadded(verse.verseNumber)} ${verse.verseText}`);
   
-  const result = [NEW_PAGE_STRING, ALIGN_STRING[alignStyle], headTitle, ...paddedTexts].join(lineFeed);
+  const result = [NEW_PAGE_STRING, ALIGN_STRING[alignStyle], headTitle, lineFeed, ...paddedTexts].join(lineFeed);
 
   return result;
 }

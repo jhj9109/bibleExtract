@@ -1,3 +1,4 @@
+import type { ChapterInfoByBookName, ChapterInfoByBookName2 } from '../type/index';
 
 export const chapterInfoByBookName: ChapterInfoByBookName[] = [
   {

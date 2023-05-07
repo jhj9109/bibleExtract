@@ -1,3 +1,4 @@
+import type { BibleInfo } from '../type'
 /**
  * fullNameKr: '창세기',
  * shortNameKr: '창',

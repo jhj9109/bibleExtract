@@ -1,3 +1,4 @@
+import type { ShortBookNameKr, BibleInfo } from "../type/index"
 import { bibleInfos } from "./data2";
 import { fullNameKrToQueryName } from "./data3";
 

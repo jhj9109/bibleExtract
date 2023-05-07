@@ -1,3 +1,4 @@
+import type { BibleRequestInfo } from '../type/index';
 import * as readlineSync from 'readline-sync';
 import { queryVersionNames } from './data3';
 import { parseArgument } from './parse';

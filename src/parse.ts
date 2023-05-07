@@ -1,3 +1,4 @@
+import type { BookInfo, Verse, Bible, Chapter, BibleInfo, Book, BibleRequestInfo, ShortBookNameKr } from "../type/index"
 import { chapterInfoByBookName2 } from "./data1";
 import { bibleInfos } from "./data2";
 import { shortBookNameKrs } from "./data3";
