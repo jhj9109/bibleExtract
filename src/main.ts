@@ -5,7 +5,7 @@
 
 import axios from 'axios';
 import * as fs from 'fs';
-import { queryVersionPrompt, promptQueries } from './prompt';
+import { queryVersionPrompt, windowCheckPrompt, promptQueries } from './prompt';
 
 import { extractVersesFromHtmlString, getTextString, getLineFeedString } from './utils'
 import { getUrl } from './url'
@@ -13,6 +13,10 @@ import { getUrl } from './url'
 async function main() {
   const writeCallback = (err: NodeJS.ErrnoException) =>
     err ? console.error(err) : console.log('파일이 "output.txt"이름으로 성공적으로 저장되었습니다.');
+  
+  const isWindow = windowCheckPrompt();
+
+  const lineFeed = getLineFeedString(isWindow);
   
   const queryVersionName = queryVersionPrompt();
 
@@ -47,12 +51,12 @@ async function main() {
         chapterNumber,
         verseNumberStart,
         verseNumberEnd,
+        lineFeed
       );
 
       return textString;
     });
 
-    const lineFeed = getLineFeedString();
     fs.writeFile('output.txt', textStrings.join(lineFeed), writeCallback);
   } catch (error) {
     console.error(error);

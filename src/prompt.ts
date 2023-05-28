@@ -2,6 +2,7 @@ import type { BibleRequestInfo } from '../type/index';
 import * as readlineSync from 'readline-sync';
 import { queryVersionNames } from './data3';
 import { parseArgument } from './parse';
+import { checkIsWindowFromProcess } from './utils';
 
 export const promptWithOptions = (optionName: string, options: string[], defaultOption = '') => {
   const makePromptMessage = () => 
@@ -24,7 +25,13 @@ export const queryVersionPrompt = () => {
   return queryVersionName;
 }
 
-
+export const windowCheckPrompt = () => {
+  const promptMessage = `window에서 사용할 것이라면 y를 입력해주세요. (default: 운영체제 자동 감지): `;
+  const autoCheckIsWindow = checkIsWindowFromProcess();
+  const isWindow = readlineSync.question(promptMessage) === 'y' || autoCheckIsWindow;
+  console.log(`window 사용여부가 ${isWindow}로 체크되었습니다.`);
+  return isWindow;
+}
 
 export const promptQueries = () => {
   const bibleRequestInfos: BibleRequestInfo[] = [];

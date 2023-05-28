@@ -47,13 +47,15 @@ var utils_1 = require("./utils");
 var url_1 = require("./url");
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var writeCallback, queryVersionName, bibleRequestInfos, requestUrls, response, textStrings, lineFeed, error_1;
+        var writeCallback, isWindow, lineFeed, queryVersionName, bibleRequestInfos, requestUrls, response, textStrings, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     writeCallback = function (err) {
                         return err ? console.error(err) : console.log('파일이 "output.txt"이름으로 성공적으로 저장되었습니다.');
                     };
+                    isWindow = (0, prompt_1.windowCheckPrompt)();
+                    lineFeed = (0, utils_1.getLineFeedString)(isWindow);
                     queryVersionName = (0, prompt_1.queryVersionPrompt)();
                     bibleRequestInfos = (0, prompt_1.promptQueries)();
                     if (bibleRequestInfos.length === 0) {
@@ -74,10 +76,9 @@ function main() {
                         var _a = bibleRequestInfos[i], bookName = _a.bookName, chapterNumber = _a.chapterNumber, verseNumberStart = _a.verseNumberStart, verseNumberEnd = _a.verseNumberEnd;
                         var htmlString = resp.data;
                         var verses = (0, utils_1.extractVersesFromHtmlString)(htmlString, bookName, chapterNumber, verseNumberStart, verseNumberEnd);
-                        var textString = (0, utils_1.getTextString)(verses, bookName, chapterNumber, verseNumberStart, verseNumberEnd);
+                        var textString = (0, utils_1.getTextString)(verses, bookName, chapterNumber, verseNumberStart, verseNumberEnd, lineFeed);
                         return textString;
                     });
-                    lineFeed = (0, utils_1.getLineFeedString)();
                     fs.writeFile('output.txt', textStrings.join(lineFeed), writeCallback);
                     return [3 /*break*/, 4];
                 case 3:
