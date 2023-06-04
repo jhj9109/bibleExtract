@@ -1466,7 +1466,7 @@ export const chapterInfoByBookName: ChapterInfoByBookName[] = [
     }
   },
   {
-    bookName: "요한일서",
+    bookName: "요한1서",
     chapterInfo: {
       1: 10,
       2: 29,
@@ -1476,13 +1476,13 @@ export const chapterInfoByBookName: ChapterInfoByBookName[] = [
     }
   },
   {
-    bookName: "요한이서",
+    bookName: "요한2서",
     chapterInfo: {
       1: 13
     }
   },
   {
-    bookName: "요한삼서",
+    bookName: "요한3서",
     chapterInfo: {
       1: 14
     }

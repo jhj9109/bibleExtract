@@ -497,7 +497,7 @@ export const bibleInfos: BibleInfo[] = [
         numOfVerse: 61
     },
     {
-        fullNameKr: '요한일서',
+        fullNameKr: '요한1서',
         shortNameKr: '요일',
         fullNameEn: '1 John',
         shortNameEn: '1John',
@@ -505,7 +505,7 @@ export const bibleInfos: BibleInfo[] = [
         numOfVerse: 105
     },
     {
-        fullNameKr: '요한이서',
+        fullNameKr: '요한2서',
         shortNameKr: '요이',
         fullNameEn: '2 John',
         shortNameEn: '2John',
@@ -513,7 +513,7 @@ export const bibleInfos: BibleInfo[] = [
         numOfVerse: 13
     },
     {
-        fullNameKr: '요한삼서',
+        fullNameKr: '요한3서',
         shortNameKr: '요삼',
         fullNameEn: '3 John',
         shortNameEn: '3John',
