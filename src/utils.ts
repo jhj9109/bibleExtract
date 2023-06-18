@@ -72,6 +72,8 @@ export const getTextString = (
     movie: '&&' // 영화 자막 정렬(한 페이지내 가장 긴 문장(중앙정렬) 기준 왼쪽정렬)
   };
 
+  const noPad = verseNumberStart === verseNumberEnd;
+
   const zeropadded = (verseNumber: number) =>
     '0'.repeat(Math.max(0, String(verseNumberEnd).length - String(verseNumber).length)) + String(verseNumber);
 
@@ -95,10 +97,18 @@ export const getTextString = (
     return headTitle;
   }
 
+  const getVerseString = (
+    verse: {
+      bookName: string;
+      chapterNumber: number;
+      verseNumber: number;
+      verseText: any;
+    }
+  ) => noPad ? verse.verseText : `${zeropadded(verse.verseNumber)} ${verse.verseText}`
+
   const headTitle = getHeadTitle();
 
-  const paddedTexts = verses.map(verse =>
-    `${zeropadded(verse.verseNumber)} ${verse.verseText}`);
+  const paddedTexts = verses.map(getVerseString);
 
   const result = [
     NEW_PAGE_STRING,

@@ -63,6 +63,7 @@ var getTextString = function (verses, bookName, chapterNumber, verseNumberStart,
         middle: '<>',
         movie: '&&' // 영화 자막 정렬(한 페이지내 가장 긴 문장(중앙정렬) 기준 왼쪽정렬)
     };
+    var noPad = verseNumberStart === verseNumberEnd;
     var zeropadded = function (verseNumber) {
         return '0'.repeat(Math.max(0, String(verseNumberEnd).length - String(verseNumber).length)) + String(verseNumber);
     };
@@ -80,10 +81,9 @@ var getTextString = function (verses, bookName, chapterNumber, verseNumberStart,
         }
         return headTitle;
     };
+    var getVerseString = function (verse) { return noPad ? verse.verseText : "".concat(zeropadded(verse.verseNumber), " ").concat(verse.verseText); };
     var headTitle = getHeadTitle();
-    var paddedTexts = verses.map(function (verse) {
-        return "".concat(zeropadded(verse.verseNumber), " ").concat(verse.verseText);
-    });
+    var paddedTexts = verses.map(getVerseString);
     var result = __spreadArray([
         NEW_PAGE_STRING,
         ALIGN_STRING[alignStyle],
