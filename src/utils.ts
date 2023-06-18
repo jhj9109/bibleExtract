@@ -109,7 +109,7 @@ export const getTextString = (
   ].reduce((prev, cur) =>
     cur !== lineFeed ?
       prev + lineFeed + cur :
-      prev + cur, "");
+      prev + cur);
 
   return result;
 }

@@ -93,7 +93,7 @@ var getTextString = function (verses, bookName, chapterNumber, verseNumberStart,
         return cur !== lineFeed ?
             prev + lineFeed + cur :
             prev + cur;
-    }, "");
+    });
     return result;
 };
 exports.getTextString = getTextString;
