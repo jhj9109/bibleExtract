@@ -80,7 +80,7 @@ export const getTextString = (
   const getHeadTitle = (
     bookNameStyle: BookNameStyle = 'fullNameKr',
     chapterString: string = ':',
-    verseString: string = '~',
+    verseString: string = '-',
   ) => {
 
     const bookFullNameKr = (bibleInfos.find(info => info.shortNameKr === bookName) as BibleInfo)[bookNameStyle];

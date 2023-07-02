@@ -70,7 +70,7 @@ var getTextString = function (verses, bookName, chapterNumber, verseNumberStart,
     var getHeadTitle = function (bookNameStyle, chapterString, verseString) {
         if (bookNameStyle === void 0) { bookNameStyle = 'fullNameKr'; }
         if (chapterString === void 0) { chapterString = ':'; }
-        if (verseString === void 0) { verseString = '~'; }
+        if (verseString === void 0) { verseString = '-'; }
         var bookFullNameKr = data2_1.bibleInfos.find(function (info) { return info.shortNameKr === bookName; })[bookNameStyle];
         var headTitle = bookFullNameKr + ' ' + "".concat(chapterNumber) + chapterString + "".concat(verseNumberStart);
         if (verseNumberStart < verseNumberEnd) {
