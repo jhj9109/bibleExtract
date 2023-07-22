@@ -41,7 +41,7 @@ const getBookChapterVerseLimit = (bookName: ShortBookNameKr, chapterNumber: numb
 export const parseArgument = (args: string[]): BibleRequestInfo => {
 
   if (args.length < 3) {
-    throw new Error('Invalid Argument Error. 최소 3개의 인자를 가져야 합니다. 실행 예시: ./파일명 성경이름 장 시작절 [끝절]');
+    throw new Error('Invalid Argument Error. 최소 3개의 인자를 가져야 합니다. 실행 예시: 성경이름 장 시작절 [끝절]');
   }
 
   let [bookName, chapterNumberString, verseNumberStringStart, verseNumberStringEnd] = args;
