@@ -42,9 +42,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = require("axios");
 var fs = require("fs");
+var https = require("https");
 var prompt_1 = require("./prompt");
 var utils_1 = require("./utils");
 var url_1 = require("./url");
+// 우회 방법1
+var instance = axios_1.default.create({
+    httpsAgent: new https.Agent({
+        rejectUnauthorized: false
+    })
+});
+// 우회 방법2
+// const instance = axios;
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 function main() {
     return __awaiter(this, void 0, void 0, function () {
         var writeCallback, isWindow, lineFeed, queryVersionName, bibleRequestInfos, requestUrls, response, textStrings, error_1;
@@ -69,7 +79,7 @@ function main() {
                         var bookName = _a.bookName, chapterNumber = _a.chapterNumber, verseNumberStart = _a.verseNumberStart, verseNumberEnd = _a.verseNumberEnd;
                         return (0, url_1.getUrl)(bookName, chapterNumber, verseNumberStart, queryVersionName);
                     });
-                    return [4 /*yield*/, Promise.all(requestUrls.map(function (url) { return axios_1.default.get(url); }))];
+                    return [4 /*yield*/, Promise.all(requestUrls.map(function (url) { return instance.get(url); }))];
                 case 2:
                     response = _a.sent();
                     textStrings = response.map(function (resp, i) {
