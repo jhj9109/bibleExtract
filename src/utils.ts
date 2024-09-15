@@ -114,8 +114,8 @@ export const getTextString = (
     NEW_PAGE_STRING,
     ALIGN_STRING[alignStyle],
     headTitle,
-    lineFeed,
-    ...paddedTexts
+    ...paddedTexts,
+    lineFeed
   ].reduce((prev, cur) =>
     cur !== lineFeed ?
       prev + lineFeed + cur :

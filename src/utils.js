@@ -84,12 +84,13 @@ var getTextString = function (verses, bookName, chapterNumber, verseNumberStart,
     var getVerseString = function (verse) { return noPad ? verse.verseText : "".concat(zeropadded(verse.verseNumber), " ").concat(verse.verseText); };
     var headTitle = getHeadTitle();
     var paddedTexts = verses.map(getVerseString);
-    var result = __spreadArray([
+    var result = __spreadArray(__spreadArray([
         NEW_PAGE_STRING,
         ALIGN_STRING[alignStyle],
-        headTitle,
+        headTitle
+    ], paddedTexts, true), [
         lineFeed
-    ], paddedTexts, true).reduce(function (prev, cur) {
+    ], false).reduce(function (prev, cur) {
         return cur !== lineFeed ?
             prev + lineFeed + cur :
             prev + cur;
