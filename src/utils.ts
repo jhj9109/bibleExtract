@@ -110,12 +110,20 @@ export const getTextString = (
 
   const paddedTexts = verses.map(getVerseString);
 
+  /**
+   * 새로운 버전에서 페이지 구분방식이 변경됨에 따라 양식 변경
+   * - lineFeed가 무조건 페이지 구분으로써 사용됨
+   * - 옵션으로 예전처럼 NEW_PAGE_STRING을 페이지 구분으로써 사용가능
+   * - 1. 타이틀과 본문사이에 lineFeed 제거
+   * - 2. NEW_PAGE_STRING 옵션 적용전 넣은 본문뒤 lineFeed도 제거
+   */
   const result = [
     NEW_PAGE_STRING,
     ALIGN_STRING[alignStyle],
     headTitle,
+    // lineFeed, // 본래 필요한 양식이나, lineFeed가 무조건적으로 페이지 구분으로 작동해 제거
     ...paddedTexts,
-    lineFeed
+    // lineFeed, // NEW_PAGE_STRING 옵션 모를때 사용
   ].reduce((prev, cur) =>
     cur !== lineFeed ?
       prev + lineFeed + cur :

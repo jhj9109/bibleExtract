@@ -84,13 +84,18 @@ var getTextString = function (verses, bookName, chapterNumber, verseNumberStart,
     var getVerseString = function (verse) { return noPad ? verse.verseText : "".concat(zeropadded(verse.verseNumber), " ").concat(verse.verseText); };
     var headTitle = getHeadTitle();
     var paddedTexts = verses.map(getVerseString);
-    var result = __spreadArray(__spreadArray([
+    /**
+     * 새로운 버전에서 페이지 구분방식이 변경됨에 따라 양식 변경
+     * - lineFeed가 무조건 페이지 구분으로써 사용됨
+     * - 옵션으로 예전처럼 NEW_PAGE_STRING을 페이지 구분으로써 사용가능
+     * - 1. 타이틀과 본문사이에 lineFeed 제거
+     * - 2. NEW_PAGE_STRING 옵션 적용전 넣은 본문뒤 lineFeed도 제거
+     */
+    var result = __spreadArray([
         NEW_PAGE_STRING,
         ALIGN_STRING[alignStyle],
         headTitle
-    ], paddedTexts, true), [
-        lineFeed
-    ], false).reduce(function (prev, cur) {
+    ], paddedTexts, true).reduce(function (prev, cur) {
         return cur !== lineFeed ?
             prev + lineFeed + cur :
             prev + cur;
