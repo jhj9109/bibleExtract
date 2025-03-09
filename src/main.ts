@@ -27,13 +27,13 @@ async function main() {
   const writeCallback = (err: NodeJS.ErrnoException) =>
     err ? console.error(err) : console.log('파일이 "output.txt"이름으로 성공적으로 저장되었습니다.');
   
-  const isWindow = windowCheckPrompt();
+  const isWindow = await windowCheckPrompt();
 
   const lineFeed = getLineFeedString(isWindow);
   
-  const queryVersionName = queryVersionPrompt();
+  const queryVersionName = await queryVersionPrompt();
 
-  const bibleRequestInfos = promptQueries();
+  const bibleRequestInfos = await promptQueries();
 
   if (bibleRequestInfos.length === 0) {
     console.log("검색할 성경 구절이 입력되지 않아 종료합니다.")
