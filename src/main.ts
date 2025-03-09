@@ -7,7 +7,7 @@ import axios from 'axios';
 import * as fs from 'fs';
 import * as https from 'https';
 
-import { queryVersionPrompt, windowCheckPrompt, promptQueries } from './prompt';
+import { queryVersionPrompt, windowCheckPrompt, promptQueries, createReadlineInterface } from './prompt';
 
 import { extractVersesFromHtmlString, getTextString, getLineFeedString } from './utils'
 import { getUrl } from './url'
@@ -26,14 +26,18 @@ const instance = axios.create({
 async function main() {
   const writeCallback = (err: NodeJS.ErrnoException) =>
     err ? console.error(err) : console.log('파일이 "output.txt"이름으로 성공적으로 저장되었습니다.');
+
+  const rl = createReadlineInterface();
   
-  const isWindow = await windowCheckPrompt();
+  const isWindow = await windowCheckPrompt(rl);
 
   const lineFeed = getLineFeedString(isWindow);
   
-  const queryVersionName = await queryVersionPrompt();
+  const queryVersionName = await queryVersionPrompt(rl);
 
-  const bibleRequestInfos = await promptQueries();
+  const bibleRequestInfos = await promptQueries(rl);
+
+  rl.close();
 
   if (bibleRequestInfos.length === 0) {
     console.log("검색할 성경 구절이 입력되지 않아 종료합니다.")
