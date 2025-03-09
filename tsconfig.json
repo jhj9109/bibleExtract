@@ -6,7 +6,9 @@
       "./node_modules/@types",
       "./type"
     ],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "rootDir": "./src"
   },
   "include": ["src/**/*", "type/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]

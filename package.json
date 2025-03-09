@@ -12,7 +12,7 @@
     "@types/readline-sync": "^1.4.4"
   },
   "scripts": {
-    "start": "node src/main.js",
-    "build": "tsc src/main.ts"
+    "start": "node ./dist/main.js",
+    "build": "tsc"
   }
 }
