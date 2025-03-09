@@ -1,39 +1,54 @@
 import type { BibleRequestInfo } from '../type/index';
-import * as readlineSync from 'readline-sync';
+// import * as readlineSync from 'readline-sync';
+import * as readline from 'readline';
 import { queryVersionNames } from './data3';
 import { parseArgument } from './parse';
 import { checkIsWindowFromProcess } from './utils';
 
-export const promptWithOptions = (optionName: string, options: string[], defaultOption = '') => {
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+const question = (query: string): Promise<string> => {
+  return new Promise((resolve) => {
+    console.log(`쿼리: ${query}`);
+    rl.question(query, (answer) => {
+      resolve(answer);
+    });
+  });
+};
+
+export const promptWithOptions = async (optionName: string, options: string[], defaultOption = '') => {
   const makePromptMessage = () => 
     `${optionName}을 선택해주세요.` + (!!defaultOption ? `(default: ${defaultOption})` : '') + '\n' + `[${options.join(', ')}]: `
   const promptMessage = makePromptMessage();
   const setOptions = Array.isArray(options) ? new Set(options) : options;
   let userInput = '';
   do {
-    userInput = readlineSync.question(promptMessage) || defaultOption;
+    userInput = await question(promptMessage) || defaultOption;
   } while (!setOptions.has(userInput));
   console.log(`${optionName}은 ${userInput}로 선택하셨습니다.`);
   return userInput;
 }
 
-export const queryVersionPrompt = () => {
+export const queryVersionPrompt = async () => {
   const queryVersionOptionName = '역본';
   const queryVersionOptions = Object.keys(queryVersionNames);
-  const versionSelectedKr = promptWithOptions(queryVersionOptionName, queryVersionOptions, '개역개정');
+  const versionSelectedKr = await promptWithOptions(queryVersionOptionName, queryVersionOptions, '개역개정');
   const queryVersionName = queryVersionNames[versionSelectedKr];
   return queryVersionName;
 }
 
-export const windowCheckPrompt = () => {
+export const windowCheckPrompt = async () => {
   const promptMessage = `window에서 사용할 것이라면 y를 입력해주세요. (default: 운영체제 자동 감지): `;
   const autoCheckIsWindow = checkIsWindowFromProcess();
-  const isWindow = readlineSync.question(promptMessage) === 'y' || autoCheckIsWindow;
+  const isWindow = await question(promptMessage) === 'y' || autoCheckIsWindow;
   console.log(`window 사용여부가 ${isWindow}로 체크되었습니다.`);
   return isWindow;
 }
 
-export const promptQueries = () => {
+export const promptQueries = async () => {
   const bibleRequestInfos: BibleRequestInfo[] = [];
   
   console.log("찾을 성경 구절을 입력하세요. (e.g. 창 1 1 2) | 그만 하시려면 y를 입력하세요");
@@ -41,7 +56,7 @@ export const promptQueries = () => {
   let userInput = '';
   
   while (true) {
-    userInput = readlineSync.question("찾을 성경 구절: ");
+    userInput = await question("찾을 성경 구절: ");
     
     if (userInput === "y") {
       break;

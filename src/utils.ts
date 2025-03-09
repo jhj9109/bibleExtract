@@ -132,3 +132,7 @@ export const getTextString = (
   return result;
 }
 
+export const setStdinStdoutEncodingUtf8 = () => {
+  process.stdin.setEncoding('utf8');
+  process.stdout.setEncoding('utf8');
+}
