@@ -6,9 +6,13 @@
 
 `npm install package.json`
 
+### build
+
+`npm run build`
+
 ### exec file with no argument:
 
-`node ./src/main.js`
+`npm run start`
 
 ### first, select version
 
