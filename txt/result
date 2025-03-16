@@ -1,0 +1,14 @@
+/workspaces/sunmin/src/main.js:50
+    httpsAgent: new https_1.default.Agent({
+                                    ^
+
+TypeError: Cannot read properties of undefined (reading 'Agent')
+    at Object.<anonymous> (/workspaces/sunmin/src/main.js:50:37)
+    at Module._compile (node:internal/modules/cjs/loader:1275:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1329:10)
+    at Module.load (node:internal/modules/cjs/loader:1133:32)
+    at Module._load (node:internal/modules/cjs/loader:972:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:83:12)
+    at node:internal/main/run_main_module:23:47
+
+Node.js v19.8.1

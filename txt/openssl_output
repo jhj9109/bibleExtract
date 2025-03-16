@@ -1,0 +1,148 @@
+openssl s_client -connect www.bskorea.or.kr:443 -servername www.bskorea.or.kr
+CONNECTED(00000003)
+depth=0 C = KR, ST = Seoul, L = Seocho-gu, O = Korean Bible Society, CN = www.bskorea.or.kr
+verify error:num=20:unable to get local issuer certificate
+verify return:1
+depth=0 C = KR, ST = Seoul, L = Seocho-gu, O = Korean Bible Society, CN = www.bskorea.or.kr
+verify error:num=21:unable to verify the first certificate
+verify return:1
+depth=0 C = KR, ST = Seoul, L = Seocho-gu, O = Korean Bible Society, CN = www.bskorea.or.kr
+verify return:1
+---
+Certificate chain
+ 0 s:C = KR, ST = Seoul, L = Seocho-gu, O = Korean Bible Society, CN = www.bskorea.or.kr
+   i:C = US, O = DigiCert Inc, OU = www.digicert.com, CN = Thawte TLS RSA CA G1
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIGdTCCBV2gAwIBAgIQBuGp1AHNb/MDmCO/+iT+aTANBgkqhkiG9w0BAQsFADBe
+MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
+d3cuZGlnaWNlcnQuY29tMR0wGwYDVQQDExRUaGF3dGUgVExTIFJTQSBDQSBHMTAe
+Fw0yMzA5MTUwMDAwMDBaFw0yNDEwMDEyMzU5NTlaMGwxCzAJBgNVBAYTAktSMQ4w
+DAYDVQQIEwVTZW91bDESMBAGA1UEBxMJU2VvY2hvLWd1MR0wGwYDVQQKExRLb3Jl
+YW4gQmlibGUgU29jaWV0eTEaMBgGA1UEAxMRd3d3LmJza29yZWEub3Iua3IwggEi
+MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCm7kCOxAAQ+o1Wsij4UiE7Ukl7
+43m0kt93EDAColAwuREd4UUB7wU7EjWfEUR0Ptc5/ThOEwRbLlOFS2GaTklSbxJC
+m3yA6CQLu6yBq/Qcw0M60aRFaxt0ytUAesGnL0pTC5b5acDsd/2hGvQITQVw34Jp
+q5nqwo0mm8DpfUpyLnBotA3ryo8KvRTmRn5v3gscNzZOPz5u29EExj7XmtfVV2t2
+y7EwsRnMOQZwy8wIBt3G087pwabgfcan5sBgkcapUEgyYLuz8R8u0AeiCjXIqq51
+Q4UKRpidD/7aoKONqPBa4TzqjZIm7MmmJ9yMOSxLyB/BQx59O0Fcgr7XZv6bAgMB
+AAGjggMfMIIDGzAfBgNVHSMEGDAWgBSljP4yzOsPLNQZxgi4ACSIXcPFtzAdBgNV
+HQ4EFgQUXS8YMkRTa6AiZKdNaA9c8yN1XYEwKwYDVR0RBCQwIoIRd3d3LmJza29y
+ZWEub3Iua3KCDWJza29yZWEub3Iua3IwPgYDVR0gBDcwNTAzBgZngQwBAgIwKTAn
+BggrBgEFBQcCARYbaHR0cDovL3d3dy5kaWdpY2VydC5jb20vQ1BTMA4GA1UdDwEB
+/wQEAwIFoDAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwOwYDVR0fBDQw
+MjAwoC6gLIYqaHR0cDovL2NkcC50aGF3dGUuY29tL1RoYXd0ZVRMU1JTQUNBRzEu
+Y3JsMHAGCCsGAQUFBwEBBGQwYjAkBggrBgEFBQcwAYYYaHR0cDovL3N0YXR1cy50
+aGF3dGUuY29tMDoGCCsGAQUFBzAChi5odHRwOi8vY2FjZXJ0cy50aGF3dGUuY29t
+L1RoYXd0ZVRMU1JTQUNBRzEuY3J0MAwGA1UdEwEB/wQCMAAwggF+BgorBgEEAdZ5
+AgQCBIIBbgSCAWoBaAB1AO7N0GTV2xrOxVy3nbTNE6Iyh0Z8vOzew1FIWUZxH7Wb
+AAABipfSzAAAAAQDAEYwRAIgJ0miCJEIPpIael8CD5mmAEIFLturYDJ+tP+3E/kL
+BK4CIGP7yuRvXxBlRMj2cM2NriwLeHO8PPjeacG52WSw+M1BAHYASLDja9qmRzQP
+5WoC+p0w6xxSActW3SyB2bu/qznYhHMAAAGKl9LMPgAABAMARzBFAiEAiuoCeif/
+E9zlcrgp8vvkblz8/1eB3DZ2dhMOtMK7RMECIGjuamliGSxIkHniTAsZIg5JFP8z
+W9Hplfq0UFndSaljAHcA2ra/az+1tiKfm8K7XGvocJFxbLtRhIU0vaQ9MEjX+6sA
+AAGKl9LMCwAABAMASDBGAiEA7JhPL5yGncUw5gY4xg4zQcdxMiGCD7zVA/bBRXhd
+j8ICIQC+cYj5Ct1Ov5i8sHwYKaBu2uo4ixkhamcKqVb8AzosqjANBgkqhkiG9w0B
+AQsFAAOCAQEAZwVGSct7FbTa+lc9EHSyD4lqrXlfaLbkmwzG25l2j0qs34obPLzo
+84HN1Hgu3FzlDlYRm37mLWyLRUWFvihov7cLBLr3MZc+LNqwQk2PtE18zpRTQMo5
+PnkmkdIttahLsST7oK7B5LyhIIaSjUOgK2GpY/br/CKwaySSEr3qyW2B8PA8If3E
+2kKl9wIbMxcUQbl7gpcq3CO9kw2aglJEuXImTFERqKL4X3thYpt5w0poW3dg4pLK
+I6KLNuqByfApXtH3k0TxylMDyirmQIF+WIqYzf9gCESQQGzgViEDBwF3mU/1k+gn
+Va/pmVkEFI7GWYeZ4HMbJEZwaIYfWEGN6w==
+-----END CERTIFICATE-----
+subject=C = KR, ST = Seoul, L = Seocho-gu, O = Korean Bible Society, CN = www.bskorea.or.kr
+
+issuer=C = US, O = DigiCert Inc, OU = www.digicert.com, CN = Thawte TLS RSA CA G1
+
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: RSA-PSS
+Server Temp Key: X25519, 253 bits
+---
+SSL handshake has read 2213 bytes and written 399 bytes
+Verification error: unable to verify the first certificate
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Server public key is 2048 bit
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 21 (unable to verify the first certificate)
+---
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: E8114CD9C9BA643E04906270AD7B06AEDEC20A00C49C146AED8F978F986E34F8
+    Session-ID-ctx: 
+    Resumption PSK: D58643123AD9FDF8E66787D30690055A79EE1EF8642352B7017980C940D013721FABAC2F6D9849C9AB2EA5AB8ACE52C3
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 300 (seconds)
+    TLS session ticket:
+    0000 - 1a 23 0d 34 a9 72 b1 93-b9 6a da 9b d2 ae b3 5a   .#.4.r...j.....Z
+    0010 - bd 12 ac f4 13 93 cd dc-a7 75 f7 ff 4e de 0d c3   .........u..N...
+    0020 - ec 55 0a d3 01 cf ef f1-2a 04 b8 db 4d 15 10 d4   .U......*...M...
+    0030 - 97 5d b1 de 83 41 6c 97-78 ad 84 77 a4 e7 3e 1f   .]...Al.x..w..>.
+    0040 - 75 12 46 c2 9d b6 1f 49-b4 40 1a 26 0e 91 d6 ef   u.F....I.@.&....
+    0050 - 21 f1 35 3b a1 6e 22 4f-6b f7 a2 be 14 ae 41 49   !.5;.n"Ok.....AI
+    0060 - 9e c5 ab ab bc a8 bd 5b-a4 b9 b6 24 95 bf d9 9f   .......[...$....
+    0070 - 64 f4 86 f4 39 f3 e3 2d-f3 cd 5b 9e a1 f2 dc 0b   d...9..-..[.....
+    0080 - 12 ba 62 b5 96 11 69 8f-91 7f 61 80 73 5c c5 b0   ..b...i...a.s\..
+    0090 - 14 04 92 08 57 7d 3c 8c-1b 06 98 b1 34 1d 77 9e   ....W}<.....4.w.
+    00a0 - 50 7b 54 d7 64 a6 1e 41-27 ea f7 01 ab 49 3c fd   P{T.d..A'....I<.
+    00b0 - b5 e8 b9 10 07 f4 fb 42-e1 f9 8f 9d a4 d9 bf 4f   .......B.......O
+    00c0 - 25 60 59 4a 37 f1 b5 14-eb 22 9b 82 06 4e 82 a6   %`YJ7...."...N..
+    00d0 - 59 12 37 5a e5 9f 61 5e-cc f6 48 c5 7e 55 51 77   Y.7Z..a^..H.~UQw
+    00e0 - fe 65 02 1d 85 ab a4 d7-b4 1c e3 95 f7 c3 ee 4a   .e.............J
+
+    Start Time: 1702169965
+    Timeout   : 7200 (sec)
+    Verify return code: 21 (unable to verify the first certificate)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: 20D09A3630295854953745D8481F099F1E83766A3243FCE61C131FCCF537F435
+    Session-ID-ctx: 
+    Resumption PSK: 6A4DB96F259317D92FDF911FB48B1084902BF45BAD44DB98C4CF314E022C9CE2B1D4FDCD0FDEB624E900E20CFD2E3633
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 300 (seconds)
+    TLS session ticket:
+    0000 - 1a 23 0d 34 a9 72 b1 93-b9 6a da 9b d2 ae b3 5a   .#.4.r...j.....Z
+    0010 - 47 7b 41 36 15 be fa 95-c7 57 16 7e fb e6 cb 6a   G{A6.....W.~...j
+    0020 - 06 d0 f1 5b b9 19 d2 57-83 3d fd b0 47 4e f9 24   ...[...W.=..GN.$
+    0030 - c9 b2 e9 f7 e9 c6 66 79-17 20 92 68 13 de a6 9d   ......fy. .h....
+    0040 - 43 3b 44 0e 3f b9 60 ec-46 23 43 f1 d3 97 49 46   C;D.?.`.F#C...IF
+    0050 - 99 e6 ae 33 e9 6a db ac-35 b7 b0 3f 34 bb ef d1   ...3.j..5..?4...
+    0060 - a6 17 7d 72 a0 11 37 74-2f 64 ab 6b 11 69 fa 89   ..}r..7t/d.k.i..
+    0070 - af 51 6a 3e c4 96 35 21-80 e6 93 e0 cd 1d ba 97   .Qj>..5!........
+    0080 - 3c 67 b8 92 19 dc e1 e5-81 eb 0b cb a8 04 9d a1   <g..............
+    0090 - 70 4f 01 68 ba b0 86 aa-d2 f3 3a b2 92 47 e6 89   pO.h......:..G..
+    00a0 - 46 c0 3b 9c c8 56 7f 3d-b5 49 d3 ec 00 78 c2 c6   F.;..V.=.I...x..
+    00b0 - a4 96 93 42 18 f1 cc d4-df a5 66 ba 2b ab 6d fe   ...B......f.+.m.
+    00c0 - 16 db 5a 8b 09 21 02 98-43 31 0c ff 0c e9 bb 01   ..Z..!..C1......
+    00d0 - b6 01 6f 3d 28 93 cb 64-09 3f ea d4 83 79 9b 92   ..o=(..d.?...y..
+    00e0 - a2 53 c7 a1 70 05 dd 7c-8c d6 22 66 3d 1a 6d 39   .S..p..|.."f=.m9
+
+    Start Time: 1702169965
+    Timeout   : 7200 (sec)
+    Verify return code: 21 (unable to verify the first certificate)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+closed

@@ -1,0 +1,5 @@
+Certificate chain
+ 0 s:C = KR, ST = Seoul, L = Seocho-gu, O = Korean Bible Society, CN = www.bskorea.or.kr
+   i:C = US, O = DigiCert Inc, OU = www.digicert.com, CN = Thawte TLS RSA CA G1
+ 1 s:C = US, O = DigiCert Inc, OU = www.digicert.com, CN = Thawte TLS RSA CA G1
+   i:C = US, O = DigiCert Inc, CN = DigiCert Global Root CA
